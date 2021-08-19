@@ -4,9 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -19,8 +17,12 @@ public class Tag {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
+    private TagType tagType;
+
     @Builder
-    public Tag(String title) {
+    public Tag(String title, TagType tagType) {
         this.title = title;
+        this.tagType = tagType;
     }
 }

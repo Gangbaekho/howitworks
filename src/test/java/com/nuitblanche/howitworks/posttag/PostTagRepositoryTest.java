@@ -12,8 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,6 +73,5 @@ public class PostTagRepositoryTest {
         assertThat(selectedPostTag.getPost().getTitle()).isEqualTo(postTitle);
         assertThat(selectedPostTag.getPost().getContent()).isEqualTo(postContent);
         assertThat(selectedPostTag.getTag().getTitle()).isEqualTo(tagTitle);
-
     }
 }

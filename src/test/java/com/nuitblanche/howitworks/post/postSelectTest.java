@@ -8,7 +8,6 @@ import com.nuitblanche.howitworks.domain.tag.Tag;
 import com.nuitblanche.howitworks.domain.tag.TagRepository;
 import com.nuitblanche.howitworks.domain.tag.TagType;
 import org.junit.After;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,13 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PostRepositoryTest {
+public class postSelectTest {
 
     @Autowired
     private PostRepository postRepository;
@@ -34,38 +32,8 @@ public class PostRepositoryTest {
     @Autowired
     private PostTagRepository postTagRepository;
 
-    @After
-    public void cleanUp(){
-        postTagRepository.deleteAll();
-        tagRepository.deleteAll();
-        postRepository.deleteAll();
-    }
-
-    @Test
-    public void createPost(){
-
-        // given
-        String title = "title";
-        String content = "content";
-
-        Post post = Post.builder()
-                .title(title)
-                .content(content)
-                .build();
-
-        // save
-        postRepository.save(post);
-
-        Post selectedPost = postRepository.findAll().get(0);
-
-        // test
-        assertThat(selectedPost.getTitle()).isEqualTo(title);
-        assertThat(selectedPost.getContent()).isEqualTo(content);
-    }
-
-    @Transactional
-    @Test
-    public void createPostWithMultipleTags(){
+    @Before
+    public void setUp(){
 
         // given
         String title = "title";
@@ -118,8 +86,22 @@ public class PostRepositoryTest {
                 .post(post)
                 .tag(scienceTag)
                 .build());
-
-        Post selectedPost = postRepository.findAll().get(0);
-        assertThat(selectedPost.getPostTags().size()).isEqualTo(3);
     }
+
+    @After
+    public void cleanUp(){
+        postTagRepository.deleteAll();
+        tagRepository.deleteAll();
+        postRepository.deleteAll();
+    }
+
+
+    @Test
+    @Transactional
+    public void getPostWithMultipleTags(){
+
+        Post post = postRepository.findAll().get(0);
+        assertThat(post.getPostTags().size()).isEqualTo(3);
+    }
+
 }
