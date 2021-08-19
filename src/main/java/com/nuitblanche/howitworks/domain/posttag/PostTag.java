@@ -17,11 +17,11 @@ public class PostTag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Post post;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TAG_ID")
     private Tag tag;
 
@@ -32,5 +32,13 @@ public class PostTag {
         this.post = post;
         this.tag = tag;
         this.something = something;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 }
