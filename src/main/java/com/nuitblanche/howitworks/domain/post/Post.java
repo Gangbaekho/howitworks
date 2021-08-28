@@ -2,6 +2,7 @@ package com.nuitblanche.howitworks.domain.post;
 
 
 import com.nuitblanche.howitworks.domain.posttag.PostTag;
+import com.nuitblanche.howitworks.domain.project.Project;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,13 +24,18 @@ public class Post {
     private String title;
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="PROJECT_ID")
+    private Project project;
+
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
     @Builder
-    public Post(String title, String content) {
+    public Post(String title, String content, Project project, List<PostTag> postTags) {
         this.title = title;
         this.content = content;
+        this.project = project;
+        this.postTags = postTags;
     }
-
 }
