@@ -24,11 +24,11 @@ public class Post {
     private String title;
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="PROJECT_ID")
     private Project project;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
     @Builder

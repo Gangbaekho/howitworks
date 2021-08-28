@@ -21,9 +21,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PostRepositoryFetchTest {
+public class PostRepositoryEagerFetchTest {
 
     @PersistenceUnit
     private EntityManagerFactory factory;
@@ -98,7 +99,7 @@ public class PostRepositoryFetchTest {
     public void postFetchTest(){
 
         Post post = postRepository.findAll().get(0);
-        Post selected = postRepository.findByIdFetchedPost(post.getId());
+        Post selected = postRepository.custonFindById(post.getId());
 
         assertThat(selected.getProject()).isNotNull();
         assertThat(selected.getPostTags()).isNotNull();

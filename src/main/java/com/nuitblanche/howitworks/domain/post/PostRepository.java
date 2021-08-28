@@ -8,4 +8,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
     @Query(value = "SELECT p FROM Post p JOIN FETCH p.project JOIN FETCH p.postTags WHERE p.id = :id")
     Post findByIdFetchedPost(@Param("id") Long id);
+
+    @Query(value = "SELECT p FROM Post p WHERE p.id = :id")
+    Post custonFindById(@Param("id") Long id);
 }
