@@ -23,7 +23,7 @@ public class Post {
     private String title;
     private String content;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PostTag> postTags = new ArrayList<>();
 
     @Builder
